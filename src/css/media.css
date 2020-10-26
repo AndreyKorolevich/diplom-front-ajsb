@@ -1,0 +1,62 @@
+@media (max-width: 767px) {
+  .section {
+    width: 75%;
+  }
+
+  .right-aside {
+    width: 0;
+    transition: width 1s;
+  }
+
+  .name-conv {
+    width: 35%;
+  }
+
+  .search, .nested {
+    width: 10%;
+  }
+
+  .header .nav-item:nth-child(3) {
+    width: 20%;
+  }
+
+  .right-aside-box {
+    display: block;
+  }
+
+  .right-aside-tansition {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 30%;
+    height: calc(100% - 40px);
+  }
+}
+
+@media (max-width: 575px) {
+  body{
+  font-size: 14px;
+  }
+
+  .organizer {
+    font-size: 12px;
+  }
+
+  .left-aside{
+    width: 15%;
+  }
+
+  .section {
+    width: 85%;
+  }
+
+  .file, .emoji, .micro, .video {
+    width: 10%;
+  }
+
+  .form-message {
+    width: 60%;
+    background-color: #e7ebf0;
+  }
+}
+

@@ -1,0 +1,13 @@
+.section .article {
+  height: calc(100% - 40px);
+  position: relative;
+}
+
+.right-aside-box {
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: #808080;
+  cursor: pointer;
+  display: none;
+}
