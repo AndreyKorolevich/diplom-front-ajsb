@@ -5,3 +5,22 @@
 .right-aside a {
   color: #00BFFF;
 }
+
+@media (max-width: 767px) {
+  .right-aside {
+    width: 0;
+    transition: width 1s;
+  }
+
+  .right-aside-box {
+    display: block;
+  }
+
+  .right-aside-tansition {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 40%;
+    height: calc(100% - 40px);
+  }
+}

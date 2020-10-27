@@ -3,11 +3,6 @@
     width: 75%;
   }
 
-  .right-aside {
-    width: 0;
-    transition: width 1s;
-  }
-
   .name-conv {
     width: 35%;
   }
@@ -20,16 +15,22 @@
     width: 20%;
   }
 
-  .right-aside-box {
-    display: block;
+  .article {
+    position: relative;
   }
 
-  .right-aside-tansition {
+  .cover-on {
     position: absolute;
     top: 0;
     right: 0;
-    width: 30%;
-    height: calc(100% - 40px);
+    left: 0;
+    bottom: 0;
+    background-color: black;
+    opacity: 0.6;
+  }
+
+  .cover-off {
+    z-index: -99;
   }
 }
 
