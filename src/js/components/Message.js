@@ -62,14 +62,14 @@ export default class Message {
         <a target="_blank" href="${link[0]}">${link[0]}</a>
          ${text.slice(endPoint)}
         `;
-      return message
-    } else {
-      return text;
+      return message;
     }
+    return text;
   }
 
   addTMessage(message) {
     const mesElem = document.createElement('div');
+    mesElem.dataset.id = message.id;
     mesElem.classList.add('message');
     mesElem.classList.add('yours-message');
     mesElem.innerHTML = this.cheackForLink(message.data);

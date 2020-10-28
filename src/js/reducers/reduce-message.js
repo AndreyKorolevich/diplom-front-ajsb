@@ -1,5 +1,4 @@
 import Actions from '../actions';
-import Store from '../store';
 
 const reduceMessage = (state, action) => {
   switch (action.type) {
