@@ -7,15 +7,14 @@ const reduceMessage = (state, action) => {
       return [
         ...state,
         action.payload,
-      ]
+      ];
     default:
       return state;
   }
 };
 
 export const addMessage = (message, store) => {
-  store.dispatch({type: Actions.addMessage, payload: message});
-}
-
+  store.dispatch({ type: Actions.addMessage, payload: message });
+};
 
 export default reduceMessage;

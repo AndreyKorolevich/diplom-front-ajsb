@@ -1,5 +1,5 @@
-import Input from "./Input";
-import Message from "./Message";
+import Input from './Input';
+import Message from './Message';
 
 export default class Main {
   constructor(store) {
@@ -20,6 +20,4 @@ export default class Main {
   rerender() {
     this.message.start();
   }
-
-
 }

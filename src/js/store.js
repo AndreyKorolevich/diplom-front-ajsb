@@ -2,7 +2,7 @@ import reduceMessage from './reducers/reduce-message';
 
 export default class Store {
   constructor() {
-    this.callSubscriber = this.callSubscriber.bind(this)
+    this.callSubscriber = this.callSubscriber.bind(this);
     this.state = {
       messages: [],
     };
@@ -25,4 +25,3 @@ export default class Store {
     this.callSubscriber();
   }
 }
-

@@ -1,4 +1,4 @@
-import {addMessage} from "../reducers/reduce-message";
+import { addMessage } from '../reducers/reduce-message';
 
 export default class Input {
   constructor(store) {
@@ -9,9 +9,8 @@ export default class Input {
   start() {
     this.input.addEventListener('submit', (event) => {
       event.preventDefault();
-      addMessage({type: 'text', data: event.target.message.value}, this.store)
+      addMessage({ type: 'text', data: event.target.message.value }, this.store);
       event.target.message.value = '';
-    })
+    });
   }
-
 }
