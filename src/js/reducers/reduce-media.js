@@ -7,8 +7,8 @@ const reduceMedia = (state, action) => {
         ...state,
         links: [
           ...state.links,
-          action.payload
-        ]
+          action.payload,
+        ],
       };
     default:
       return state;
@@ -16,23 +16,23 @@ const reduceMedia = (state, action) => {
 };
 
 export const addVideo = (link, store) => {
-  store.dispatch({type: Actions.addLinks, payload: link});
+  store.dispatch({ type: Actions.addLinks, payload: link });
 };
 
 export const addFile = (link, store) => {
-  store.dispatch({type: Actions.addLinks, payload: link});
+  store.dispatch({ type: Actions.addLinks, payload: link });
 };
 
 export const addAudio = (link, store) => {
-  store.dispatch({type: Actions.addLinks, payload: link});
+  store.dispatch({ type: Actions.addLinks, payload: link });
 };
 
 export const addLink = (link, store) => {
-  store.dispatch({type: Actions.addLink, payload: link});
+  store.dispatch({ type: Actions.addLink, payload: link });
 };
 
 export const addVoice = (link, store) => {
-  store.dispatch({type: Actions.addLinks, payload: link});
+  store.dispatch({ type: Actions.addLinks, payload: link });
 };
 
 export default reduceMedia;

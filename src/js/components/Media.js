@@ -10,12 +10,11 @@ export default class Media {
 
   start() {
     if (this.store.state.media) {
-      this.videos.textContent = this.store.state.media.videos.length
-      this.files.textContent = this.store.state.media.files.length
-      this.audios.textContent = this.store.state.media.audios.length
-      this.links.textContent = this.store.state.media.links.length
-      this.voices.textContent = this.store.state.media.voices.length
+      this.videos.textContent = this.store.state.media.videos.length;
+      this.files.textContent = this.store.state.media.files.length;
+      this.audios.textContent = this.store.state.media.audios.length;
+      this.links.textContent = this.store.state.media.links.length;
+      this.voices.textContent = this.store.state.media.voices.length;
     }
   }
 }
-

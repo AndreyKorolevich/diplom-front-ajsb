@@ -53,7 +53,7 @@
 }
 
 
-.yours-message::after{
+.yours-message::after {
   content: "";
   position: absolute;
   right: -5px;
@@ -61,7 +61,7 @@
   height: 10px;
   width: 10px;
   background: #F5F5DC;
-  border-radius:0 100% 0 0;
+  border-radius: 0 100% 0 0;
 }
 
 .other-message::before {
@@ -77,4 +77,37 @@
 
 .section a {
   color: blue;
+}
+
+.overlapped {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  margin: 0;
+  opacity: 0;
+  width: 1px;
+}
+
+.footer .file {
+  position: relative;
+}
+
+.drop-border {
+  outline: 2px dashed rgba(255, 255, 255, 0.8);
+  outline-offset: -10px;
+  padding: 10px;
+  height: 100%;
+  background: black;
+  opacity: 0.7;
+}
+
+.drop-border::before {
+  content: "Drop file here";
+  position: absolute;
+  color: white;
+  font-size: 3rem;
+  top: calc(50% - 3rem);
+  left: 20%;
 }
