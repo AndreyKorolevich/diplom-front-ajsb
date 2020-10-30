@@ -1,15 +1,19 @@
 import {v4 as uuidv4} from 'uuid';
 import {addMessage} from '../reducers/reduce-message';
 import {addLink} from '../reducers/reduce-media';
+import Worker from '../webworker/web.worker';
+import Modal from "./Modal";
 
 export default class Input {
   constructor(store) {
     this.store = store;
-    this.input = document.getElementById('form-message');
+    this.messageForm = document.getElementById('message-form');
+    this.cardForm = document.getElementById('card-form');
     this.dropEl = document.querySelector('[data-id=drop-area]');
     this.fileEl = document.querySelector('.overlapped');
     this.file = null;
-    this.toggleBorder = this.toggleBorder.bind(this)
+    this.toggleBorder = this.toggleBorder.bind(this);
+    this.processingFile = this.processingFile.bind(this);
 
     this.dropEl.addEventListener('dragover', (evt) => {
       evt.preventDefault();
@@ -21,17 +25,17 @@ export default class Input {
       evt.preventDefault();
       this.file = evt.dataTransfer.files[0];
       this.toggleBorder();
-      console.log(this.file);
+      this.processingFile(this.file);
     });
 
     this.fileEl.addEventListener('change', (evt) => {
-      this.file = Array.from(evt.currentTarget.files)[0];
-      console.log(this.file)
+      this.file = evt.target.files[0];
+      this.processingFile(this.file);
     });
   }
 
   start() {
-    this.input.addEventListener('submit', (event) => {
+    this.messageForm.addEventListener('submit', (event) => {
       event.preventDefault();
       const {value} = event.target.message;
       const link = value.match(/(?<![\w\-]="|">)(?<![\w\-=\#])(https?:\/\/[\w\-\.!~?&=+\*'(),\/\#\:]+)((?!\<\/\w\>))*?/);
@@ -45,9 +49,26 @@ export default class Input {
       }
       event.target.message.value = '';
     });
+
+    this.cardForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+    })
+
+    this.cardForm.addEventListener('cancel', (event) => {
+      event.preventDefault();
+    })
   }
 
   toggleBorder(evn) {
     this.dropEl.classList.toggle('drop-border');
+  }
+
+  async processingFile(file) {
+    const worker = new Worker();
+    worker.addEventListener('message', ({data: result}) => {
+      worker.terminate();
+      Modal.showModal(result);
+    });
+    worker.postMessage({file});
   }
 }

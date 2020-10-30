@@ -79,7 +79,7 @@
             </a>
           </li>
           <li class="nav-item form-message">
-            <form id="form-message">
+            <form id="message-form">
               <div class="row">
                 <div class="col">
                   <input type="text" name="message" class="form-control" placeholder="Write a message...">
@@ -182,6 +182,23 @@
     </aside>
   </main>
 </div>
+<div class="card hidden" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title"></h5>
+    <div class="preview"></div>
+    <form id="card-form">
+        <div class="row">
+          <div class="col">
+            <input type="text" name="message" class="form-control" placeholder="Add text...">
+          </div>
+        </div>
+      <button class="btn btn-primary" type="submit">Send</button>
+      <button class="btn btn-primary" type="cancel">Cancel</button>
+    </form>
+  </div>
+</div>
+<div id="cover-main" class="cover-main-off"></div>
+
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
         crossorigin="anonymous"></script>

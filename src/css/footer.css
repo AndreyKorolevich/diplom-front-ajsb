@@ -38,3 +38,11 @@
 input:focus {
   box-shadow: 0 0 0 0 rgba(0,123,255,0)!important;
 }
+
+.footer .col {
+  padding-left: 3px;
+}
+
+.footer .file {
+  margin-right: 10px;
+}

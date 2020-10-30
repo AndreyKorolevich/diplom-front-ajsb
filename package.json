@@ -26,13 +26,16 @@
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.1.0",
     "eslint-plugin-import": "^2.20.2",
+    "eslint-restricted-globals": "^0.2.0",
     "file-loader": "^6.0.0",
     "html-loader": "^1.1.0",
     "jest": "^25.4.0",
+    "jsdoc": "^3.6.3",
     "live-server": "^1.2.1",
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.11",
-    "webpack-dev-server": "^3.10.3"
+    "webpack-dev-server": "^3.10.3",
+    "worker-loader": "^3.0.4"
   },
   "dependencies": {
     "core-js": "^3.6.5",
