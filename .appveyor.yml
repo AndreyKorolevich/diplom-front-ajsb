@@ -4,7 +4,7 @@ stack: node 12  # окружение
 
 branches:
   only:
-    - master  # ветка git
+    - main  # ветка git
 
 cache: node_modules  # кеширование
 
@@ -17,7 +17,7 @@ build_script:
   - yarn run build   # команда сборки
 
 test_script:
-  - yarn run lint && yarn test  # скрипт тестирования
+  - yarn lint && yarn test  # скрипт тестирования
 
 deploy_script:  # скрипт развёртывания
   - git config --global credential.helper store
