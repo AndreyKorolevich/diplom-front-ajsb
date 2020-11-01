@@ -3,7 +3,7 @@ import reduceMedia from './reducers/reduce-media';
 
 export default class Store {
   constructor() {
-    this.callSubscriber = this.callSubscriber.bind(this);
+    // this.callSubscriber = this.callSubscriber.bind(this);
     this.state = {
       messages: [],
       media: {
@@ -20,17 +20,17 @@ export default class Store {
     return this.state;
   }
 
-  subscribe(observer) {
-    this.callSubscriber = observer;
+  static subscribe(observer) {
+    Store.callSubscriber = observer;
   }
 
-  callSubscriber() {
+  static callSubscriber() {
     console.log('hello');
   }
 
   dispatch(action) {
     this.state.messages = reduceMessage(this.state.messages, action);
     this.state.media = reduceMedia(this.state.media, action);
-    this.callSubscriber();
+    Store.callSubscriber();
   }
 }

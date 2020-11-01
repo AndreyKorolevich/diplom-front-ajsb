@@ -5,7 +5,7 @@ const dowload = (file) => new Promise((resolve, reject) => {
   } else {
     const reader = new FileReader();
     reader.addEventListener('load', (evt) => {
-      resolve({data: evt.target.result, type: file.type, name: file.name});
+      resolve({ data: evt.target.result, type: file.type, name: file.name });
     });
     reader.addEventListener('error', (evt) => {
       reject(evt.target.error);

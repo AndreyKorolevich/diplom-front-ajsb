@@ -5,6 +5,6 @@ import Main from './components/Main';
 const store = new Store();
 const main = new Main(store);
 main.start();
-store.subscribe(main.rerender);
+Store.subscribe(main.rerender);
 
 window.store = store;

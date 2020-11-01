@@ -1,6 +1,3 @@
-import {addAudio, addFile, addVideo} from "../reducers/reduce-media";
-import {v4 as uuidv4} from "uuid";
-
 export default class Message {
   constructor(container, store) {
     this.container = container;
@@ -15,7 +12,8 @@ export default class Message {
     this.store.getState().messages.forEach((elem) => this.addTMessage(elem));
   }
 
-  cheackForLink(text) {
+  static cheackForLink(text) {
+    // eslint-disable-next-line
     const link = text.match(/(?<![\w\-]="|">)(?<![\w\-=\#])(https?:\/\/[\w\-\.!~?&=+\*'(),\/\#\:]+)((?!\<\/\w\>))*?/);
     if (link) {
       const endPoint = link.index + link[0].length;
@@ -36,26 +34,26 @@ export default class Message {
     mesElem.classList.add('yours-message');
     switch (message.type) {
       case 'text':
-        mesElem.innerHTML = this.cheackForLink(message.data);
+        mesElem.innerHTML = Message.cheackForLink(message.data);
         break;
       case 'video':
         mesElem.innerHTML = `
         <video class="message__video" controls src="${message.data.file}"></video>
-        <p class="message__text">${this.cheackForLink(message.data.text)}</p>
+        <p class="message__text">${Message.cheackForLink(message.data.text)}</p>
         `;
         break;
       case 'audio':
         mesElem.innerHTML = `
         <audio class="message__audio" controls src="${message.data.file}"></audio>
-        <p class="message__text">${this.cheackForLink(message.data.text)}</p>
+        <p class="message__text">${Message.cheackForLink(message.data.text)}</p>
         `;
         break;
       case 'image':
         mesElem.innerHTML = `
         <img class="message__img" src="${message.data.file}">
-        <p class="message__text">${this.cheackForLink(message.data.text)}</p>
+        <p class="message__text">${Message.cheackForLink(message.data.text)}</p>
         `;
-        break
+        break;
       default:
         mesElem.innerHTML = `
         <a class="message__file"  src="${message.data.file}">
@@ -67,9 +65,9 @@ export default class Message {
         </div>
         <div class="card-file__name">Text files</div>
         </a>
-        <p class="message__text">${this.cheackForLink(message.data.text)}</p>
+        <p class="message__text">${Message.cheackForLink(message.data.text)}</p>
         `;
-        break
+        break;
     }
     this.container.appendChild(mesElem);
   }

@@ -1,5 +1,3 @@
-import {v4 as uuidv4} from 'uuid';
-
 export default class Modal {
   static showModal(file) {
     document.querySelector('.card').classList.remove('hidden');
@@ -37,7 +35,7 @@ export default class Modal {
             </svg>
         </div>
         <div class="card-file__name">${file.name.slice(0, 15)}</div>
-        `
+        `;
         elem.classList.add('card-file');
         break;
     }

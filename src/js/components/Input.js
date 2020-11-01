@@ -1,8 +1,10 @@
-import {v4 as uuidv4} from 'uuid';
-import {addMessage} from '../reducers/reduce-message';
-import {addAudio, addFile, addLink, addVideo} from '../reducers/reduce-media';
+import { v4 as uuidv4 } from 'uuid';
+import { addMessage } from '../reducers/reduce-message';
+import {
+  addAudio, addFile, addLink, addVideo,
+} from '../reducers/reduce-media';
 import Worker from '../webworker/web.worker';
-import Modal from "./Modal";
+import Modal from './Modal';
 
 export default class Input {
   constructor(store) {
@@ -13,7 +15,6 @@ export default class Input {
     this.fileEl = document.querySelector('.overlapped');
     this.file = null;
     this.toggleBorder = this.toggleBorder.bind(this);
-    this.processingFile = this.processingFile.bind(this);
 
     this.dropEl.addEventListener('dragover', (evt) => {
       evt.preventDefault();
@@ -23,30 +24,34 @@ export default class Input {
 
     this.dropEl.addEventListener('drop', (evt) => {
       evt.preventDefault();
+      // eslint-disable-next-line
       this.file = evt.dataTransfer.files[0];
       this.toggleBorder();
-      this.processingFile(this.file);
+      Input.processingFile(this.file);
     });
 
     this.fileEl.addEventListener('change', (evt) => {
+      // eslint-disable-next-line
       this.file = evt.target.files[0];
-      this.processingFile(this.file);
+      Input.processingFile(this.file);
     });
   }
 
   start() {
     this.messageForm.addEventListener('submit', (event) => {
       event.preventDefault();
-      const {value} = event.target.message
-      const result = {type: 'text', data: value, id: uuidv4()};
+      const { value } = event.target.message;
+      const result = { type: 'text', data: value, id: uuidv4() };
       addMessage(result, this.store);
 
+      // eslint-disable-next-line
       const link = value.match(/(?<![\w\-]="|">)(?<![\w\-=\#])(https?:\/\/[\w\-\.!~?&=+\*'(),\/\#\:]+)((?!\<\/\w\>))*?/);
       if (link) {
         addLink({
           type: 'link', data: link[0], idMessage: result.id, id: uuidv4(),
         }, this.store);
       }
+      // eslint-disable-next-line
       event.target.message.value = '';
     });
 
@@ -54,7 +59,11 @@ export default class Input {
       event.preventDefault();
       const text = event.target.message.value;
       const fileData = event.target.previousElementSibling.firstElementChild;
-      const result = {type: fileData.dataset.type, data: {file: fileData.src, text}, id: uuidv4()};
+      const result = {
+        type: fileData.dataset.type,
+        data: { file: fileData.src, text },
+        id: uuidv4(),
+      };
       Modal.hideModal();
 
       addMessage(result, this.store);
@@ -62,36 +71,36 @@ export default class Input {
         case 'video':
           addVideo({
             type: 'video', idMessage: result.id, id: uuidv4(),
-          }, this.store)
+          }, this.store);
           break;
         case 'audio':
           addAudio({
             type: 'audio', idMessage: result.id, id: uuidv4(),
-          }, this.store)
+          }, this.store);
           break;
         default:
           addFile({
             type: 'file', idMessage: result.id, id: uuidv4(),
-          }, this.store)
+          }, this.store);
       }
-    })
+    });
 
     this.cardForm.addEventListener('reset', (event) => {
       event.preventDefault();
       Modal.hideModal();
-    })
+    });
   }
 
-  toggleBorder(evn) {
+  toggleBorder() {
     this.dropEl.classList.toggle('drop-border');
   }
 
-  async processingFile(file) {
+  static async processingFile(file) {
     const worker = new Worker();
-    worker.addEventListener('message', ({data: result}) => {
+    worker.addEventListener('message', ({ data: result }) => {
       worker.terminate();
       Modal.showModal(result);
     });
-    worker.postMessage({file});
+    worker.postMessage({ file });
   }
 }
