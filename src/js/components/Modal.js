@@ -2,28 +2,33 @@ import {v4 as uuidv4} from 'uuid';
 
 export default class Modal {
   static showModal(file) {
-    document.querySelector('.card').classList.toggle('hidden');
-    document.getElementById('cover-main').classList.toggle('cover-main-on');
+    document.querySelector('.card').classList.remove('hidden');
+    document.getElementById('cover-main').classList.add('cover-main-on');
     document.querySelector('.card-title').textContent = file.name;
+    const type = file.type.split('/')[0];
     let elem;
 
-    switch (file.type.split('/')[0]) {
+    switch (type) {
       case 'image':
         elem = document.createElement('img');
         elem.classList.add('card-img');
+        elem.dataset.type = type;
         break;
       case 'video':
         elem = document.createElement('video');
         elem.classList.add('card-video');
+        elem.dataset.type = type;
         elem.controls = true;
         break;
       case 'audio':
         elem = document.createElement('audio');
         elem.classList.add('card-audio');
+        elem.dataset.type = type;
         elem.controls = true;
         break;
       default:
         elem = document.createElement('a');
+        elem.dataset.type = type;
         elem.innerHTML = `
         <div class="card-file__icon">
             <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-file-earmark-font" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -39,5 +44,12 @@ export default class Modal {
     elem.src = file.data;
     URL.revokeObjectURL(elem.src);
     document.querySelector('.preview').appendChild(elem);
+  }
+
+  static hideModal() {
+    document.querySelector('.card').classList.add('hidden');
+    document.getElementById('cover-main').classList.remove('cover-main-on');
+    document.querySelector('.card-title').textContent = '';
+    document.querySelector('.preview').firstElementChild.remove();
   }
 }

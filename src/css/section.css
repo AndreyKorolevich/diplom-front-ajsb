@@ -111,3 +111,11 @@
   top: calc(50% - 3rem);
   left: 20%;
 }
+
+.message__img, .message__audio, .message__video, .message__file{
+  width: 100%;
+}
+
+.message__file {
+  display: flex;
+}

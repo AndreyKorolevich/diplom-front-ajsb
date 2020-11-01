@@ -1,6 +1,6 @@
 import {v4 as uuidv4} from 'uuid';
 import {addMessage} from '../reducers/reduce-message';
-import {addLink} from '../reducers/reduce-media';
+import {addAudio, addFile, addLink, addVideo} from '../reducers/reduce-media';
 import Worker from '../webworker/web.worker';
 import Modal from "./Modal";
 
@@ -37,11 +37,11 @@ export default class Input {
   start() {
     this.messageForm.addEventListener('submit', (event) => {
       event.preventDefault();
-      const {value} = event.target.message;
-      const link = value.match(/(?<![\w\-]="|">)(?<![\w\-=\#])(https?:\/\/[\w\-\.!~?&=+\*'(),\/\#\:]+)((?!\<\/\w\>))*?/);
+      const {value} = event.target.message
       const result = {type: 'text', data: value, id: uuidv4()};
       addMessage(result, this.store);
 
+      const link = value.match(/(?<![\w\-]="|">)(?<![\w\-=\#])(https?:\/\/[\w\-\.!~?&=+\*'(),\/\#\:]+)((?!\<\/\w\>))*?/);
       if (link) {
         addLink({
           type: 'link', data: link[0], idMessage: result.id, id: uuidv4(),
@@ -52,10 +52,33 @@ export default class Input {
 
     this.cardForm.addEventListener('submit', (event) => {
       event.preventDefault();
+      const text = event.target.message.value;
+      const fileData = event.target.previousElementSibling.firstElementChild;
+      const result = {type: fileData.dataset.type, data: {file: fileData.src, text}, id: uuidv4()};
+      Modal.hideModal();
+
+      addMessage(result, this.store);
+      switch (fileData.dataset.type) {
+        case 'video':
+          addVideo({
+            type: 'video', idMessage: result.id, id: uuidv4(),
+          }, this.store)
+          break;
+        case 'audio':
+          addAudio({
+            type: 'audio', idMessage: result.id, id: uuidv4(),
+          }, this.store)
+          break;
+        default:
+          addFile({
+            type: 'file', idMessage: result.id, id: uuidv4(),
+          }, this.store)
+      }
     })
 
-    this.cardForm.addEventListener('cancel', (event) => {
+    this.cardForm.addEventListener('reset', (event) => {
       event.preventDefault();
+      Modal.hideModal();
     })
   }
 

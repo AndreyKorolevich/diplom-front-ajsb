@@ -1,5 +1,3 @@
-import Modal from "../components/Modal";
-
 const dowload = (file) => new Promise((resolve, reject) => {
   if (file === undefined) {
     const error = new Error('There`s no choose file');
