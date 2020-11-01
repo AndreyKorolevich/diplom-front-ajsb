@@ -22,7 +22,7 @@ export default class Main {
   }
 
   rerender() {
-    const {messages} = this.store.getState();
+    const { messages } = this.store.getState();
     const newMessage = messages[messages.length - 1];
     if (this.lastMessage !== newMessage) {
       this.message.addMessage(newMessage);

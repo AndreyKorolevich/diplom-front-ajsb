@@ -12,8 +12,6 @@ export default class Message {
     this.store.getState().messages.forEach((elem) => this.addMessage(elem));
   }
 
-
-
   static cheackForLink(text) {
     // eslint-disable-next-line
     const link = text.match(/(?<![\w\-]="|">)(?<![\w\-=\#])(https?:\/\/[\w\-\.!~?&=+\*'(),\/\#\:]+)((?!\<\/\w\>))*?/);
