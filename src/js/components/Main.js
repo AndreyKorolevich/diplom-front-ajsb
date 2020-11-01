@@ -9,6 +9,7 @@ export default class Main {
     this.message = new Message(this.containerMessages, this.store);
     this.input = new Input(store);
     this.media = new Media(store);
+    this.lastMessage = null;
 
     this.start = this.start.bind(this);
     this.rerender = this.rerender.bind(this);
@@ -21,7 +22,12 @@ export default class Main {
   }
 
   rerender() {
-    this.message.start();
+    const {messages} = this.store.getState();
+    const newMessage = messages[messages.length - 1];
+    if (this.lastMessage !== newMessage) {
+      this.message.addMessage(newMessage);
+      this.lastMessage = newMessage;
+    }
     this.media.start();
   }
 }

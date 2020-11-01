@@ -9,8 +9,10 @@ export default class Message {
     while (this.container.lastChild && this.container.children.length > 2) {
       this.container.removeChild(this.container.lastChild);
     }
-    this.store.getState().messages.forEach((elem) => this.addTMessage(elem));
+    this.store.getState().messages.forEach((elem) => this.addMessage(elem));
   }
+
+
 
   static cheackForLink(text) {
     // eslint-disable-next-line
@@ -27,7 +29,7 @@ export default class Message {
     return text;
   }
 
-  addTMessage(message) {
+  addMessage(message) {
     const mesElem = document.createElement('div');
     mesElem.dataset.id = message.id;
     mesElem.classList.add('message');
@@ -44,9 +46,10 @@ export default class Message {
         break;
       case 'audio':
         mesElem.innerHTML = `
-        <audio class="message__audio" controls src="${message.data.file}"></audio>
+        <audio controls src="${message.data.file}"></audio>
         <p class="message__text">${Message.cheackForLink(message.data.text)}</p>
         `;
+        mesElem.classList.add('message__audio');
         break;
       case 'image':
         mesElem.innerHTML = `
@@ -56,7 +59,7 @@ export default class Message {
         break;
       default:
         mesElem.innerHTML = `
-        <a class="message__file"  src="${message.data.file}">
+        <a class="message__file" download = "" href="${message.data.file}">
         <div class="card-file__icon">
             <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-file-earmark-font" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
             <path d="M4 0h5.5v1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5h1V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2z"/>
