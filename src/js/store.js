@@ -3,7 +3,6 @@ import reduceMedia from './reducers/reduce-media';
 
 export default class Store {
   constructor() {
-    // this.callSubscriber = this.callSubscriber.bind(this);
     this.state = {
       messages: [],
       media: {

@@ -1,4 +1,5 @@
 import Actions from '../actions';
+import api from "../api/api";
 
 const reduceMessage = (state, action) => {
   switch (action.type) {
@@ -14,6 +15,7 @@ const reduceMessage = (state, action) => {
 
 export const addMessage = (message, store) => {
   store.dispatch({ type: Actions.addMessage, payload: message });
+  api.sendMessage(message);
 };
 
 export default reduceMessage;
