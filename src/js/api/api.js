@@ -21,8 +21,7 @@ class Api {
 
     this.ws.addEventListener('message', (evt) => {
       const response = JSON.parse(evt.data);
-      if (response.type === 'error') {
-      }
+      console.log(response);
     });
   }
 

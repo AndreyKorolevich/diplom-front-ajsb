@@ -1,6 +1,7 @@
 import Input from './Input';
 import Message from './Message';
 import Media from './Media';
+import Login from './Login';
 
 export default class Main {
   constructor(store) {
@@ -9,6 +10,7 @@ export default class Main {
     this.message = new Message(this.containerMessages, this.store);
     this.input = new Input(store);
     this.media = new Media(store);
+    this.login = new Login();
     this.lastMessage = null;
 
     this.start = this.start.bind(this);

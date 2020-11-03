@@ -11,7 +11,7 @@
 
 </head>
 <body>
-<div class="container">
+<div class="container hidden">
   <header class="header">
     <ul class="nav">
       <li class="nav-item  organizer">
@@ -182,6 +182,48 @@
     </aside>
   </main>
 </div>
+<div class="card registration" style="width: 18rem; height: 24rem">
+  <ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item" role="presentation">
+      <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Log in</a>
+    </li>
+    <li class="nav-item" role="presentation">
+      <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Sign in</a>
+    </li>
+  </ul>
+  <div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+      <form id="login">
+        <div class="row">
+          <div class="col">
+            <input type="text" name="name" class="form-control" placeholder="Name">
+          </div>
+          <div class="col">
+            <input type="password" name="password" class="form-control" placeholder="Password">
+          </div>
+        </div>
+        <button class="btn btn-primary" type="submit">Login</button>
+      </form>
+    </div>
+    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+      <form id="signin">
+        <div class="row">
+          <div class="col">
+            <input type="text" name="name" class="form-control" placeholder="Name">
+          </div>
+          <div class="col">
+            <input type="password" name="password" class="form-control" placeholder="Password">
+          </div>
+          <div class="col">
+            <input type="password" name="passwordAgain" class="form-control" placeholder="Password again">
+          </div>
+        </div>
+        <button class="btn btn-primary" type="submit">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>
+
 <div class="card hidden" style="width: 18rem;">
   <div class="card-body">
     <h5 class="card-title"></h5>
