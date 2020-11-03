@@ -1,5 +1,6 @@
 .registration .nav-tabs .nav-item {
   width: 50%;
+  position: relative;
 }
 
 #login .row {
@@ -39,4 +40,12 @@
 
 .wrong-field {
   border-bottom: 2px solid red!important;
+}
+
+.registration .spinner-border {
+  position: absolute;
+  width: 4rem;
+  height: 4rem;
+  top: 10rem;
+  left: 7rem;
 }

@@ -1,5 +1,4 @@
 import './utils/utils';
-import './api/api';
 import Store from './store';
 import Main from './components/Main';
 

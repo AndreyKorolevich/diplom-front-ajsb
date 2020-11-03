@@ -1,5 +1,6 @@
 import reduceMessage from './reducers/reduce-message';
 import reduceMedia from './reducers/reduce-media';
+import reduceRegistr from './reducers/reduce-registr';
 
 export default class Store {
   constructor() {
@@ -11,6 +12,12 @@ export default class Store {
         audios: [],
         links: [],
         voices: [],
+      },
+      users: {
+        isLoader: false,
+        isShowRegistr: true,
+        errorRegistr: false,
+        users: [],
       },
     };
   }
@@ -30,6 +37,7 @@ export default class Store {
   dispatch(action) {
     this.state.messages = reduceMessage(this.state.messages, action);
     this.state.media = reduceMedia(this.state.media, action);
+    this.state.users = reduceRegistr(this.state.users, action);
     Store.callSubscriber();
   }
 }

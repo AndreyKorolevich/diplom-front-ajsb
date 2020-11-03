@@ -5,6 +5,9 @@ const Actions = {
   addFile: 'ADD_FILE',
   addAudio: 'ADD_AUDIO',
   addVoice: 'ADD_VOICE',
+  addUser: 'ADD_USER',
+  sendUser: 'SEND_USER',
+  errorRegistr: 'ERROR_REGISTR',
 };
 
 export default Actions;

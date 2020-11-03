@@ -10,7 +10,7 @@ export default class Main {
     this.message = new Message(this.containerMessages, this.store);
     this.input = new Input(store);
     this.media = new Media(store);
-    this.login = new Login();
+    this.login = new Login(store);
     this.lastMessage = null;
 
     this.start = this.start.bind(this);
@@ -24,12 +24,21 @@ export default class Main {
   }
 
   rerender() {
-    const { messages } = this.store.getState();
+    const {messages} = this.store.getState();
     const newMessage = messages[messages.length - 1];
-    if (this.lastMessage !== newMessage) {
+    if (this.lastMessage !== newMessage && this.lastMessage !== null) {
       this.message.addMessage(newMessage);
       this.lastMessage = newMessage;
     }
+    this.login.showLoader();
+    const error = this.store.getState().users.errorRegistr;
+    if (error) {
+      Login.showError(document.querySelector('#signin [name="name"]'), error);
+    }
+    if (!this.store.getState().users.isShowRegistr) {
+      this.login.hideForm()
+    }
+
     this.media.start();
   }
 }
