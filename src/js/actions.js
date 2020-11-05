@@ -7,7 +7,9 @@ const Actions = {
   addVoice: 'ADD_VOICE',
   addUser: 'ADD_USER',
   sendUser: 'SEND_USER',
+  allUsers: 'ALL_USERS',
   errorRegistr: 'ERROR_REGISTR',
+  errorCheck: 'ERROR_CHECK',
 };
 
 export default Actions;

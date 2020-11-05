@@ -52,11 +52,11 @@
   }
 
   .file, .emoji, .micro, .video {
-    width: 10%;
+    width: 8%;
   }
 
   .form-message {
-    width: 60%;
+    width: 58%;
     background-color: #e7ebf0;
   }
 

@@ -1,6 +1,6 @@
 export default class Modal {
   static showModal(file) {
-    document.querySelector('.card').classList.remove('hidden');
+    document.querySelector('.card-modal').classList.remove('hidden');
     document.getElementById('cover-main').classList.add('cover-main-on');
     document.querySelector('.card-title').textContent = file.name;
     const type = file.type.split('/')[0];
@@ -45,7 +45,7 @@ export default class Modal {
   }
 
   static hideModal() {
-    document.querySelector('.card').classList.add('hidden');
+    document.querySelector('.card-modal').classList.add('hidden');
     document.getElementById('cover-main').classList.remove('cover-main-on');
     document.querySelector('.card-title').textContent = '';
     document.querySelector('.preview').firstElementChild.remove();

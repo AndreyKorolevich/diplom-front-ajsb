@@ -19,25 +19,10 @@ class Api {
     //   this.ws.send(JSON.stringify({type: 'deleteUser', user: this.curentUser}));
     // });
     //
-    // this.ws.addEventListener('message', (evt) => {
-    //   const response = JSON.parse(evt.data);
-    //   switch (response.type) {
-    //     case 'newUser':
-    //       addUser(response);
-    //       break;
-    //     default:
-    //       break;
-    //   }
-    // });
+
   }
 
-  // sendMessage(message) {
-  //   this.ws.send(JSON.stringify(message));
-  // }
-  //
-  // addUser(user) {
-  //   this.ws.send(JSON.stringify(user));
-  // }
+
 }
 
 const api = new Api();

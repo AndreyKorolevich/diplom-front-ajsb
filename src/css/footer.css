@@ -15,7 +15,7 @@
 }
 
 .file, .emoji, .micro, .video {
-  width: 8%;
+  width: 6%;
 }
 
 .footer a {
@@ -27,7 +27,7 @@
 }
 
 .form-message {
-  width: 66%;
+  width: 64%;
   background-color: #e7ebf0;
 }
 
@@ -45,4 +45,8 @@ input:focus {
 
 .footer .file {
   margin-right: 10px;
+}
+
+#message-form .col, #message-form .form-control {
+  padding-right: 0;
 }

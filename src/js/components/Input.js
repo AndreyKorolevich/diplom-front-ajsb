@@ -1,5 +1,5 @@
-import { v4 as uuidv4 } from 'uuid';
-import { addMessage } from '../reducers/reduce-message';
+import {v4 as uuidv4} from 'uuid';
+import {addMessage} from '../reducers/reduce-message';
 import {
   addAudio, addFile, addLink, addVideo,
 } from '../reducers/reduce-media';
@@ -40,15 +40,19 @@ export default class Input {
   start() {
     this.messageForm.addEventListener('submit', (event) => {
       event.preventDefault();
-      const { value } = event.target.message;
-      const result = { type: 'text', data: value, id: uuidv4() };
+      const {value} = event.target.message;
+      const result = {
+        type: 'addMessage',
+        data: value,
+        userId: this.store.getState().users.curentUser._id,
+      };
       addMessage(result, this.store);
 
       // eslint-disable-next-line
       const link = value.match(/(?<![\w\-]="|">)(?<![\w\-=\#])(https?:\/\/[\w\-\.!~?&=+\*'(),\/\#\:]+)((?!\<\/\w\>))*?/);
       if (link) {
         addLink({
-          type: 'link', data: link[0], idMessage: result.id, id: uuidv4(),
+          type: 'link', data: link[0],
         }, this.store);
       }
       // eslint-disable-next-line
@@ -61,8 +65,7 @@ export default class Input {
       const fileData = event.target.previousElementSibling.firstElementChild;
       const result = {
         type: fileData.dataset.type,
-        data: { file: fileData.src, text },
-        id: uuidv4(),
+        data: {file: fileData.src, text},
       };
       Modal.hideModal();
 
@@ -70,17 +73,17 @@ export default class Input {
       switch (fileData.dataset.type) {
         case 'video':
           addVideo({
-            type: 'video', idMessage: result.id, id: uuidv4(),
+            type: 'video',
           }, this.store);
           break;
         case 'audio':
           addAudio({
-            type: 'audio', idMessage: result.id, id: uuidv4(),
+            type: 'audio',
           }, this.store);
           break;
         default:
           addFile({
-            type: 'file', idMessage: result.id, id: uuidv4(),
+            type: 'file',
           }, this.store);
       }
     });
@@ -97,10 +100,10 @@ export default class Input {
 
   static async processingFile(file) {
     const worker = new Worker();
-    worker.addEventListener('message', ({ data: result }) => {
+    worker.addEventListener('message', ({data: result}) => {
       worker.terminate();
       Modal.showModal(result);
     });
-    worker.postMessage({ file });
+    worker.postMessage({file});
   }
 }

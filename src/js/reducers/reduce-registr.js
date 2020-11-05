@@ -2,7 +2,6 @@ import Actions from '../actions';
 import api from '../api/api';
 
 const reduceRegistr = (state, action) => {
-  console.log(action)
   switch (action.type) {
     case Actions.sendUser:
       return {
@@ -11,18 +10,30 @@ const reduceRegistr = (state, action) => {
       };
     case Actions.addUser:
       return {
-        users: [
-          ...state.users,
-          action.payload,
-        ],
+        ...state,
+        curentUser: action.payload,
         isLoader: false,
         isShowRegistr: false,
-        errorRegistr: false
+        errorRegistr: false,
+        errorCheck: false,
+      };
+    case Actions.allUsers:
+      return {
+        ...state,
+        users: [
+          action.payload,
+        ],
       };
     case Actions.errorRegistr:
       return {
         ...state,
         errorRegistr: action.payload,
+        isLoader: false,
+      };
+    case Actions.errorCheck:
+      return {
+        ...state,
+        errorCheck: action.payload,
         isLoader: false,
       };
     default:
@@ -34,19 +45,48 @@ export const addUser = (data, store) => {
   store.dispatch({type: Actions.addUser, payload: data});
 };
 
+export const allUsers = (data, store) => {
+  store.dispatch({type: Actions.allUsers, payload: data});
+};
+
 export const errorRegistr = (data, store) => {
   store.dispatch({type: Actions.errorRegistr, payload: data});
 };
+
+export const errorCheck = (data, store) => {
+  store.dispatch({type: Actions.errorCheck, payload: data});
+};
+
 
 export const sendUser = (user, store) => {
   store.dispatch({type: Actions.sendUser});
   api.ws.send(JSON.stringify(user));
   api.ws.addEventListener('message', function handler(evt) {
-    console.log('done')
     const response = JSON.parse(evt.data);
-    if (response.type === 'newUser') addUser(response.data, store);
-    else if (response.type === 'error') errorRegistr(response.text, store);
-    api.ws.removeEventListener('message', handler);
+    switch (response.type) {
+      case 'newUser':
+        addUser(response.data, store);
+        break;
+      case 'allUsers':
+        allUsers(response.data, store);
+        break;
+      case 'checkUser':
+        addUser(response.data, store);
+        break;
+      case 'addMessage':
+        store.dispatch({ type: Actions.addMessage, payload: response.data });
+        break;
+      case 'error':
+        errorRegistr(response.text, store);
+        api.ws.removeEventListener('message', handler);
+        break;
+      case 'errorCheck':
+        errorCheck(response.text, store);
+        api.ws.removeEventListener('message', handler);
+        break;
+      default:
+        break;
+    }
   });
 };
 

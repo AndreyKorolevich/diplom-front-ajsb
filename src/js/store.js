@@ -14,9 +14,11 @@ export default class Store {
         voices: [],
       },
       users: {
+        curentUser: null,
         isLoader: false,
         isShowRegistr: true,
         errorRegistr: false,
+        errorCheck: false,
         users: [],
       },
     };

@@ -26,17 +26,19 @@ export default class Main {
   rerender() {
     const {messages} = this.store.getState();
     const newMessage = messages[messages.length - 1];
-    if (this.lastMessage !== newMessage && this.lastMessage !== null) {
+    if (this.lastMessage !== newMessage) {
       this.message.addMessage(newMessage);
       this.lastMessage = newMessage;
     }
     this.login.showLoader();
-    const error = this.store.getState().users.errorRegistr;
-    if (error) {
-      Login.showError(document.querySelector('#signin [name="name"]'), error);
+    const {errorCheck, errorRegistr} = this.store.getState().users;
+    if (errorRegistr) {
+      Login.showError(document.querySelector('#signin [name="name"]'), errorRegistr);
+    } else if (errorCheck) {
+      Login.showError(document.querySelector('#login [name="name"]'), errorCheck)
     }
     if (!this.store.getState().users.isShowRegistr) {
-      this.login.hideForm()
+      this.login.hideForm();
     }
 
     this.media.start();

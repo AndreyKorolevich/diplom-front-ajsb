@@ -28,36 +28,37 @@ export default class Message {
   }
 
   addMessage(message) {
-    const mesElem = document.createElement('div');
-    mesElem.dataset.id = message.id;
-    mesElem.classList.add('message');
-    mesElem.classList.add('yours-message');
-    switch (message.type) {
-      case 'text':
-        mesElem.innerHTML = Message.cheackForLink(message.data);
-        break;
-      case 'video':
-        mesElem.innerHTML = `
-        <video class="message__video" controls src="${message.data.file}"></video>
-        <p class="message__text">${Message.cheackForLink(message.data.text)}</p>
+    if (message) {
+      const mesElem = document.createElement('div');
+      mesElem.dataset.id = message.id;
+      mesElem.classList.add('message');
+      mesElem.classList.add('yours-message');
+      switch (message.type) {
+        case 'text':
+          mesElem.innerHTML = Message.cheackForLink(message.text);
+          break;
+        case 'video':
+          mesElem.innerHTML = `
+        <video class="message__video" controls src="${message.file}"></video>
+        <p class="message__text">${Message.cheackForLink(message.text)}</p>
         `;
-        break;
-      case 'audio':
-        mesElem.innerHTML = `
+          break;
+        case 'audio':
+          mesElem.innerHTML = `
         <audio controls src="${message.data.file}"></audio>
-        <p class="message__text">${Message.cheackForLink(message.data.text)}</p>
+        <p class="message__text">${Message.cheackForLink(message.text)}</p>
         `;
-        mesElem.classList.add('message__audio');
-        break;
-      case 'image':
-        mesElem.innerHTML = `
+          mesElem.classList.add('message__audio');
+          break;
+        case 'image':
+          mesElem.innerHTML = `
         <img class="message__img" src="${message.data.file}">
-        <p class="message__text">${Message.cheackForLink(message.data.text)}</p>
+        <p class="message__text">${Message.cheackForLink(message.text)}</p>
         `;
-        break;
-      default:
-        mesElem.innerHTML = `
-        <a class="message__file" download = "" href="${message.data.file}">
+          break;
+        default:
+          mesElem.innerHTML = `
+        <a class="message__file" download = "" href="${message.file}">
         <div class="card-file__icon">
             <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-file-earmark-font" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
             <path d="M4 0h5.5v1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5h1V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2z"/>
@@ -66,10 +67,11 @@ export default class Message {
         </div>
         <div class="card-file__name">Text files</div>
         </a>
-        <p class="message__text">${Message.cheackForLink(message.data.text)}</p>
+        <p class="message__text">${Message.cheackForLink(message.text)}</p>
         `;
-        break;
+          break;
+      }
+      this.container.appendChild(mesElem);
     }
-    this.container.appendChild(mesElem);
   }
 }

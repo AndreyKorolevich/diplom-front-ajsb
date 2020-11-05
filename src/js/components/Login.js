@@ -1,4 +1,4 @@
-import {sendUser} from '../reducers/reduce-registr';
+import { sendUser } from '../reducers/reduce-registr';
 
 export default class Login {
   constructor(store) {
@@ -41,9 +41,23 @@ export default class Login {
     }
   }
 
+
   checkUser(event) {
     event.preventDefault();
-    // const formData = new FormData(event.target);
+    const formData = new FormData(event.target);
+    if (formData.get('name').length < 3) {
+      Login.showError(event.target.name, 'Name must be longer 3 symbols');
+    } else if (formData.get('password').length < 8) {
+      Login.showError(event.target.password, 'Password must be longer 8 symbols');
+    } else {
+      event.target.password.value = '';
+      event.target.name.value = '';
+      sendUser({
+        type: 'checkUser',
+        password: formData.get('password').trim(),
+        name: formData.get('name').trim(),
+      }, this.store);
+    }
   }
 
   addUser(event) {
@@ -103,6 +117,6 @@ export default class Login {
     if (document.querySelector('.form-error')) {
       document.querySelector('.form-error').remove();
     }
-    document.querySelector('.container').classList.remove('hidden')
+    document.querySelector('.container').classList.remove('hidden');
   }
 }
