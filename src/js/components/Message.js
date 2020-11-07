@@ -30,34 +30,56 @@ export default class Message {
   addMessage(message) {
     if (message) {
       const mesElem = document.createElement('div');
-      mesElem.dataset.id = message.id;
-      mesElem.classList.add('message');
-      mesElem.classList.add('yours-message');
+      const mesText = document.createElement('div');
+      const avatar = document.createElement('div');
+      const time = document.createElement('div');
+      time.classList.add('time');
+      avatar.classList.add('message-avatar');
+      time.textContent = message.date;
+      if (message.userId.avatar) {
+        avatar.innerHTML = `
+      <img src="${message.userId.avatar}"/>
+      `;
+      } else {
+        avatar.textContent = `${message.userId.name.slice(0, 1)}`.toUpperCase();
+      }
+
+      // eslint-disable-next-line
+      mesText.dataset._id = message._id;
+      mesText.classList.add('message');
+
+      if (message.userId._id === this.store.getState().users.curentUser._id) {
+        mesText.classList.add('yours-text');
+        mesElem.classList.add('yours-message');
+      } else {
+        mesText.classList.add('other-text');
+        mesElem.classList.add('other-message');
+      }
       switch (message.type) {
         case 'text':
-          mesElem.innerHTML = Message.cheackForLink(message.text);
+          mesText.innerHTML = Message.cheackForLink(message.text);
           break;
         case 'video':
-          mesElem.innerHTML = `
+          mesText.innerHTML = `
         <video class="message__video" controls src="${message.file}"></video>
         <p class="message__text">${Message.cheackForLink(message.text)}</p>
         `;
           break;
         case 'audio':
-          mesElem.innerHTML = `
+          mesText.innerHTML = `
         <audio controls src="${message.data.file}"></audio>
         <p class="message__text">${Message.cheackForLink(message.text)}</p>
         `;
-          mesElem.classList.add('message__audio');
+          mesText.classList.add('message__audio');
           break;
         case 'image':
-          mesElem.innerHTML = `
+          mesText.innerHTML = `
         <img class="message__img" src="${message.data.file}">
         <p class="message__text">${Message.cheackForLink(message.text)}</p>
         `;
           break;
         default:
-          mesElem.innerHTML = `
+          mesText.innerHTML = `
         <a class="message__file" download = "" href="${message.file}">
         <div class="card-file__icon">
             <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-file-earmark-font" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -70,6 +92,13 @@ export default class Message {
         <p class="message__text">${Message.cheackForLink(message.text)}</p>
         `;
           break;
+      }
+
+      mesText.appendChild(time);
+      if (message.userId._id === this.store.getState().users.curentUser._id) {
+        mesElem.append(mesText, avatar);
+      } else {
+        mesElem.append(avatar, mesText);
       }
       this.container.appendChild(mesElem);
     }

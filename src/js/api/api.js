@@ -19,10 +19,7 @@ class Api {
     //   this.ws.send(JSON.stringify({type: 'deleteUser', user: this.curentUser}));
     // });
     //
-
   }
-
-
 }
 
 const api = new Api();

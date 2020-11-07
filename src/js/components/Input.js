@@ -1,5 +1,5 @@
-import {v4 as uuidv4} from 'uuid';
-import {addMessage} from '../reducers/reduce-message';
+import { v4 as uuidv4 } from 'uuid';
+import { addMessage } from '../reducers/reduce-message';
 import {
   addAudio, addFile, addLink, addVideo,
 } from '../reducers/reduce-media';
@@ -40,7 +40,7 @@ export default class Input {
   start() {
     this.messageForm.addEventListener('submit', (event) => {
       event.preventDefault();
-      const {value} = event.target.message;
+      const { value } = event.target.message;
       const result = {
         type: 'addMessage',
         data: value,
@@ -65,7 +65,7 @@ export default class Input {
       const fileData = event.target.previousElementSibling.firstElementChild;
       const result = {
         type: fileData.dataset.type,
-        data: {file: fileData.src, text},
+        data: { file: fileData.src, text },
       };
       Modal.hideModal();
 
@@ -100,10 +100,10 @@ export default class Input {
 
   static async processingFile(file) {
     const worker = new Worker();
-    worker.addEventListener('message', ({data: result}) => {
+    worker.addEventListener('message', ({ data: result }) => {
       worker.terminate();
       Modal.showModal(result);
     });
-    worker.postMessage({file});
+    worker.postMessage({ file });
   }
 }

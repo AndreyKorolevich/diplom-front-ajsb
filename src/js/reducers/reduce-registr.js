@@ -21,7 +21,7 @@ const reduceRegistr = (state, action) => {
       return {
         ...state,
         users: [
-          action.payload,
+          ...action.payload,
         ],
       };
     case Actions.errorRegistr:
@@ -42,24 +42,31 @@ const reduceRegistr = (state, action) => {
 };
 
 export const addUser = (data, store) => {
-  store.dispatch({type: Actions.addUser, payload: data});
+  store.dispatch({ type: Actions.addUser, payload: data });
 };
 
 export const allUsers = (data, store) => {
-  store.dispatch({type: Actions.allUsers, payload: data});
+  store.dispatch({ type: Actions.allUsers, payload: data });
 };
 
 export const errorRegistr = (data, store) => {
-  store.dispatch({type: Actions.errorRegistr, payload: data});
+  store.dispatch({ type: Actions.errorRegistr, payload: data });
 };
 
 export const errorCheck = (data, store) => {
-  store.dispatch({type: Actions.errorCheck, payload: data});
+  store.dispatch({ type: Actions.errorCheck, payload: data });
+};
+
+export const disconectUser = (id) => {
+  api.ws.send(JSON.stringify({
+    type: 'disconectUser',
+    userId: id,
+  }));
 };
 
 
 export const sendUser = (user, store) => {
-  store.dispatch({type: Actions.sendUser});
+  store.dispatch({ type: Actions.sendUser });
   api.ws.send(JSON.stringify(user));
   api.ws.addEventListener('message', function handler(evt) {
     const response = JSON.parse(evt.data);
@@ -83,6 +90,9 @@ export const sendUser = (user, store) => {
       case 'errorCheck':
         errorCheck(response.text, store);
         api.ws.removeEventListener('message', handler);
+        break;
+      case 'disconectUser':
+        allUsers(response.data, store);
         break;
       default:
         break;

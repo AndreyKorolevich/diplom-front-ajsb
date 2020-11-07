@@ -41,7 +41,6 @@ export default class Login {
     }
   }
 
-
   checkUser(event) {
     event.preventDefault();
     const formData = new FormData(event.target);

@@ -2,7 +2,7 @@ import Actions from '../actions';
 import api from '../api/api';
 
 const reduceMessage = (state, action) => {
-  console.log(action)
+  console.log(action);
   switch (action.type) {
     case Actions.addMessage:
       return [
