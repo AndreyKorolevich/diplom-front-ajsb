@@ -47,7 +47,7 @@ export default class Message {
       // eslint-disable-next-line
       mesText.dataset._id = message._id;
       mesText.classList.add('message');
-
+      // eslint-disable-next-line
       if (message.userId._id === this.store.getState().users.curentUser._id) {
         mesText.classList.add('yours-text');
         mesElem.classList.add('yours-message');
@@ -95,6 +95,7 @@ export default class Message {
       }
 
       mesText.appendChild(time);
+      // eslint-disable-next-line
       if (message.userId._id === this.store.getState().users.curentUser._id) {
         mesElem.append(mesText, avatar);
       } else {

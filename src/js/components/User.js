@@ -1,4 +1,4 @@
-import {disconectUser} from "../reducers/reduce-registr";
+import { disconectUser } from '../reducers/reduce-registr';
 
 export default class User {
   constructor(container, store) {
@@ -6,8 +6,9 @@ export default class User {
     this.store = store;
     this.start = this.start.bind(this);
     window.addEventListener('beforeunload', () => {
+      // eslint-disable-next-line
       disconectUser(this.store.getState().users.curentUser._id);
-    })
+    });
   }
 
   start() {
@@ -37,7 +38,7 @@ export default class User {
       `;
     }
     name.textContent = user.name;
-    userElem.append(avatar, name)
+    userElem.append(avatar, name);
     this.container.appendChild(userElem);
   }
 }

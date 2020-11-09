@@ -1,4 +1,3 @@
-import { v4 as uuidv4 } from 'uuid';
 import { addMessage } from '../reducers/reduce-message';
 import {
   addAudio, addFile, addLink, addVideo,
@@ -44,6 +43,7 @@ export default class Input {
       const result = {
         type: 'addMessage',
         data: value,
+        // eslint-disable-next-line
         userId: this.store.getState().users.curentUser._id,
       };
       addMessage(result, this.store);

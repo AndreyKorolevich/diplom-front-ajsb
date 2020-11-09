@@ -64,7 +64,6 @@ export const disconectUser = (id) => {
   }));
 };
 
-
 export const sendUser = (user, store) => {
   store.dispatch({ type: Actions.sendUser });
   api.ws.send(JSON.stringify(user));

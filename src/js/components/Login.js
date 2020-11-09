@@ -49,6 +49,7 @@ export default class Login {
     } else if (formData.get('password').length < 8) {
       Login.showError(event.target.password, 'Password must be longer 8 symbols');
     } else {
+      /* eslint-disable */
       event.target.password.value = '';
       event.target.name.value = '';
       sendUser({
