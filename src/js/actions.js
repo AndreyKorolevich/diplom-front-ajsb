@@ -10,6 +10,7 @@ const Actions = {
   allUsers: 'ALL_USERS',
   errorRegistr: 'ERROR_REGISTR',
   errorCheck: 'ERROR_CHECK',
+  lastMessages: 'LAST_MESSAGES',
 };
 
 export default Actions;

@@ -35,7 +35,9 @@ export default class Message {
       const time = document.createElement('div');
       time.classList.add('time');
       avatar.classList.add('message-avatar');
-      time.textContent = message.date;
+      const date = new Date(message.date);
+
+      time.textContent = `${date.getHours()}:${date.getMinutes()}`;
       if (message.userId.avatar) {
         avatar.innerHTML = `
       <img src="${message.userId.avatar}"/>

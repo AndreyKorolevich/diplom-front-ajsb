@@ -82,6 +82,9 @@ export const sendUser = (user, store) => {
       case 'addMessage':
         store.dispatch({ type: Actions.addMessage, payload: response.data });
         break;
+      case 'lastMessages':
+        store.dispatch({ type: Actions.lastMessages, payload: response.data });
+        break;
       case 'error':
         errorRegistr(response.text, store);
         api.ws.removeEventListener('message', handler);

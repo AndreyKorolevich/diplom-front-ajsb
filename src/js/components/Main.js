@@ -28,14 +28,20 @@ export default class Main {
   }
 
   rerender() {
-    const { messages } = this.store.getState();
+    const {messages} = this.store.getState();
     const newMessage = messages[messages.length - 1];
     if (this.lastMessage !== newMessage) {
-      this.message.addMessage(newMessage);
+      for (let i = [messages.length - 1]; i >= 0; i--) {
+        if (this.lastMessage !== messages[i]) {
+          this.message.addMessage(messages[i]);
+        } else {
+          break;
+        }
+      }
       this.lastMessage = newMessage;
     }
     this.login.showLoader();
-    const { errorCheck, errorRegistr } = this.store.getState().users;
+    const {errorCheck, errorRegistr} = this.store.getState().users;
     if (errorRegistr) {
       Login.showError(document.querySelector('#signin [name="name"]'), errorRegistr);
     } else if (errorCheck) {

@@ -9,6 +9,11 @@ const reduceMessage = (state, action) => {
         ...state,
         action.payload,
       ];
+    case Actions.lastMessages:
+      return [
+        ...state,
+        ...action.payload,
+      ];
     default:
       return state;
   }
