@@ -2,7 +2,6 @@ import Actions from '../actions';
 import api from '../api/api';
 
 const reduceMessage = (state, action) => {
-  console.log(action);
   switch (action.type) {
     case Actions.addMessage:
       return [
@@ -12,7 +11,7 @@ const reduceMessage = (state, action) => {
     case Actions.lastMessages:
       return [
         ...state,
-        ...action.payload,
+        ...action.payload.reverse(),
       ];
     default:
       return state;

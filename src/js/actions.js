@@ -11,6 +11,8 @@ const Actions = {
   errorRegistr: 'ERROR_REGISTR',
   errorCheck: 'ERROR_CHECK',
   lastMessages: 'LAST_MESSAGES',
+  changeProgress: 'CHANGE_PROGRESS',
+  lastTenMessages: 'LAST_TEN_MESSAGES',
 };
 
 export default Actions;

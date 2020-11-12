@@ -3,6 +3,7 @@ import Message from './Message';
 import Media from './Media';
 import Login from './Login';
 import User from './User';
+import Scrol from './Scrol';
 
 export default class Main {
   constructor(store) {
@@ -14,34 +15,23 @@ export default class Main {
     this.media = new Media(store);
     this.login = new Login(store);
     this.user = new User(this.containerUsers, store);
-    this.lastMessage = null;
+    this.scrol = new Scrol(this.containerMessages, store);
 
     this.start = this.start.bind(this);
     this.rerender = this.rerender.bind(this);
   }
 
   start() {
-    this.message.start();
     this.input.start();
     this.media.start();
     this.user.start();
+    this.scrol.start();
   }
 
   rerender() {
-    const {messages} = this.store.getState();
-    const newMessage = messages[messages.length - 1];
-    if (this.lastMessage !== newMessage) {
-      for (let i = [messages.length - 1]; i >= 0; i--) {
-        if (this.lastMessage !== messages[i]) {
-          this.message.addMessage(messages[i]);
-        } else {
-          break;
-        }
-      }
-      this.lastMessage = newMessage;
-    }
+    this.message.start();
     this.login.showLoader();
-    const {errorCheck, errorRegistr} = this.store.getState().users;
+    const { errorCheck, errorRegistr } = this.store.getState().users;
     if (errorRegistr) {
       Login.showError(document.querySelector('#signin [name="name"]'), errorRegistr);
     } else if (errorCheck) {

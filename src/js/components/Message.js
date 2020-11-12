@@ -3,13 +3,32 @@ export default class Message {
     this.container = container;
     this.store = store;
     this.start = this.start.bind(this);
+    this.lengthMessage = 0;
+    this.lastMessage = null;
   }
 
   start() {
-    while (this.container.lastChild && this.container.children.length > 2) {
-      this.container.removeChild(this.container.lastChild);
+    const { messages } = this.store.getState();
+    if (messages.length - this.lengthMessage === 15) {
+      for (let i = 0; i < 15; i += 1) {
+        this.addAllMessages(messages[i]);
+      }
+      this.lengthMessage = messages.length;
+      // eslint-disable-next-line
+      this.lastMessage = messages[0];
+    } else if (messages.length - this.lengthMessage === 1) {
+      this.addOneMessage(messages[messages.length - 1]);
+      this.lengthMessage = messages.length;
+      // eslint-disable-next-line
+      this.lastMessage = messages[0];
+    } else if (messages.length - this.lengthMessage <= 10) {
+      for (let i = messages.length - this.lengthMessage - 1; i >= 0; i -= 1) {
+        this.addDopMessages(messages[i]);
+      }
+      this.lengthMessage = messages.length;
+      // eslint-disable-next-line
+      this.lastMessage = messages[0];
     }
-    this.store.getState().messages.forEach((elem) => this.addMessage(elem));
   }
 
   static cheackForLink(text) {
@@ -27,9 +46,23 @@ export default class Message {
     return text;
   }
 
+  addOneMessage(message) {
+    this.container.insertAdjacentElement('beforeend', this.addMessage(message));
+    this.container.scrollTop = 9999;
+  }
+
+  addAllMessages(message) {
+    this.container.appendChild(this.addMessage(message));
+    this.container.scrollTop = 9999;
+  }
+
+  addDopMessages(message) {
+    this.container.insertAdjacentElement('afterbegin', this.addMessage(message));
+  }
+
   addMessage(message) {
+    const mesElem = document.createElement('div');
     if (message) {
-      const mesElem = document.createElement('div');
       const mesText = document.createElement('div');
       const avatar = document.createElement('div');
       const time = document.createElement('div');
@@ -37,7 +70,7 @@ export default class Message {
       avatar.classList.add('message-avatar');
       const date = new Date(message.date);
 
-      time.textContent = `${date.getHours()}:${date.getMinutes()}`;
+      time.textContent = `${date.getHours()}:${date.getMinutes() < 9 ? `0${date.getMinutes()}` : date.getMinutes()}`;
       if (message.userId.avatar) {
         avatar.innerHTML = `
       <img src="${message.userId.avatar}"/>
@@ -103,7 +136,7 @@ export default class Message {
       } else {
         mesElem.append(avatar, mesText);
       }
-      this.container.appendChild(mesElem);
     }
+    return mesElem;
   }
 }
