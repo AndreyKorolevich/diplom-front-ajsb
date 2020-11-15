@@ -102,14 +102,14 @@ export default class Message {
           break;
         case 'audio':
           mesText.innerHTML = `
-        <audio controls src="${message.data.file}"></audio>
+        <audio controls src="${message.file}"></audio>
         <p class="message__text">${Message.cheackForLink(message.text)}</p>
         `;
           mesText.classList.add('message__audio');
           break;
         case 'image':
           mesText.innerHTML = `
-        <img class="message__img" src="${message.data.file}">
+        <img class="message__img" src="${message.file}">
         <p class="message__text">${Message.cheackForLink(message.text)}</p>
         `;
           break;

@@ -2,8 +2,8 @@ import { addMessage } from '../reducers/reduce-message';
 import {
   addAudio, addFile, addLink, addVideo,
 } from '../reducers/reduce-media';
-import Worker from '../webworker/web.worker';
 import Modal from './Modal';
+import Worker from '../webworker/web.worker';
 
 export default class Input {
   constructor(store) {
@@ -42,7 +42,8 @@ export default class Input {
       const { value } = event.target.message;
       const result = {
         type: 'addMessage',
-        data: value,
+        typeData: 'text',
+        text: value,
         // eslint-disable-next-line
         userId: this.store.getState().users.curentUser._id,
       };
@@ -64,11 +65,14 @@ export default class Input {
       const text = event.target.message.value;
       const fileData = event.target.previousElementSibling.firstElementChild;
       const result = {
-        type: fileData.dataset.type,
-        data: { file: fileData.src, text },
+        type: 'addMessage',
+        typeData: fileData.dataset.type,
+        text,
+        file: fileData.src,
+        // eslint-disable-next-line
+        userId: this.store.getState().users.curentUser._id,
       };
       Modal.hideModal();
-
       addMessage(result, this.store);
       switch (fileData.dataset.type) {
         case 'video':

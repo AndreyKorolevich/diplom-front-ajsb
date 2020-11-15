@@ -50,3 +50,31 @@ input:focus {
 #message-form .col, #message-form .form-control {
   padding-right: 0;
 }
+
+.timer {
+  width: 15%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.timer-stop, .timer-ok {
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.timer-stop {
+  color: red;
+}
+
+.timer-ok {
+  color: green;
+}
+
+.timer .time {
+  font-size: 1.2rem;
+}
+
+.box {
+  width: 80%;
+}
