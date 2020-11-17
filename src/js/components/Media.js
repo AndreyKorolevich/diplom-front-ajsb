@@ -74,7 +74,8 @@ export default class Media {
           return;
         }
         try {
-          let stream; let
+          let stream;
+          let
             elem;
           if (target.classList.contains('micro')) {
             elem = document.createElement('audio');
@@ -102,7 +103,9 @@ export default class Media {
             elem.srcObject = null;
             URL.revokeObjectURL(elem.src);
             const blob = {
-              file: new Blob(chunks),
+              file: new Blob(chunks, {
+                type: 'audio/wav',
+              }),
             };
             const typeData = evt.target.mimeType.split('/')[0];
             // eslint-disable-next-line

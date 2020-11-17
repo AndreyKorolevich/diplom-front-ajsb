@@ -42,6 +42,8 @@ const reduceRegistr = (state, action) => {
 };
 
 export const addUser = (data, store) => {
+  const currentUser = JSON.stringify(data);
+  sessionStorage.setItem('currentUser', currentUser);
   store.dispatch({ type: Actions.addUser, payload: data });
 };
 

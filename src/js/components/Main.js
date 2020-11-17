@@ -4,6 +4,7 @@ import Media from './Media';
 import Login from './Login';
 import User from './User';
 import Scrol from './Scrol';
+import { sendUser } from '../reducers/reduce-registr';
 
 export default class Main {
   constructor(store) {
@@ -26,6 +27,17 @@ export default class Main {
     this.media.start();
     this.user.start();
     this.scrol.start();
+    if (sessionStorage.getItem('currentUser')) {
+      this.login.hideForm();
+      const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
+      setTimeout(() => {
+        sendUser({
+          type: 'checkUser',
+          password: '12345678',
+          name: currentUser.name,
+        }, this.store);
+      }, 1000);
+    }
   }
 
   rerender() {
