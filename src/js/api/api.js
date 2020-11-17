@@ -1,7 +1,7 @@
 class Api {
   constructor() {
-    // this.url = 'wss://ajsb-diplom.herokuapp.com/ws';
-    this.url = 'ws://localhost:7010/ws';
+    this.url = 'wss://ajsb-diplom.herokuapp.com/ws';
+    //this.url = 'ws://localhost:7010/ws';
     this.ws = new WebSocket(this.url);
 
     this.ws.addEventListener('open', () => {
